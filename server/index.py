@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import pymysql
 from student import get_all_students, get_student, add_student, update_student, delete_student
 
@@ -32,6 +32,8 @@ def add_student_route():
     data = request.get_json()
     name = data['name']
     email = data['email']
+    print(name)
+    print(email)
     result = add_student(conn, name, email)
     return jsonify(result)
 
