@@ -1,6 +1,6 @@
 -- Create students table
 CREATE TABLE students (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(50),
   email VARCHAR(50)
   -- Other student-related fields
@@ -8,7 +8,7 @@ CREATE TABLE students (
 
 -- Create counselors table
 CREATE TABLE counselors (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(50),
   email VARCHAR(50)
   -- Other counselor-related fields
@@ -16,7 +16,7 @@ CREATE TABLE counselors (
 
 -- Create academic_staff table
 CREATE TABLE academic_staff (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(50),
   email VARCHAR(50)
   -- Other academic staff-related fields
@@ -24,7 +24,7 @@ CREATE TABLE academic_staff (
 
 -- Create teachers table
 CREATE TABLE teachers (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(50),
   email VARCHAR(50)
   -- Other teacher-related fields
@@ -32,7 +32,7 @@ CREATE TABLE teachers (
 
 -- Create courses table
 CREATE TABLE courses (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100),
   teacher_id INT,
   -- Other course-related fields
@@ -41,7 +41,7 @@ CREATE TABLE courses (
 
 -- Create leaves table
 CREATE TABLE leaves (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   student_id INT,
   course_id INT,
   status VARCHAR(20),
@@ -52,7 +52,7 @@ CREATE TABLE leaves (
 
 -- Create attendance table
 CREATE TABLE attendance (
-  id INT PRIMARY KEY,
+  id INT PRIMARY KEY AUTO_INCREMENT,
   student_id INT,
   course_id INT,
   attendance_date DATE,

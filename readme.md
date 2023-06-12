@@ -30,3 +30,11 @@
 7. 辅导员可以查看请假列表和出勤统计。
 
 这只是一个简单的设计思路，实际开发中需要更详细的设计和实现。具体的前后端代码实现会涉及到开发框架和技术选择，根据您的技术栈和需求进行选择。
+
+## mysql
+
+```sh
+docker build -t my-mysql .
+docker run -d -p 3306:3306 --name mysql-container my-mysql
+```
+
