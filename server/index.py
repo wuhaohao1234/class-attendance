@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import pymysql
 from student import get_all_students, get_student, add_student, update_student, delete_student
 from teacher import *
+from courses import get_all_courses, add_course, update_course, delete_course
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'  # 数据库主机名
@@ -82,6 +83,36 @@ def update_teacher_route(teacher_id):
 def get_teacher_route(teacher_id):
     teacher = get_teacher(conn, teacher_id)
     return jsonify(teacher)
+
+# 获取所有课程
+@app.route('/courses', methods=['GET'])
+def get_courses():
+    courses = get_all_courses(conn)
+    return jsonify(courses)
+
+# 添加课程
+@app.route('/courses', methods=['POST'])
+def create_course():
+    data = request.get_json()
+    name = data['name']
+    teacher_id = data['teacher_id']
+    course_id = add_course(conn, name, teacher_id)
+    return jsonify({'course_id': course_id})
+
+# 更新课程
+@app.route('/courses/<int:course_id>', methods=['PUT'])
+def update_course_route(course_id):
+    data = request.get_json()
+    name = data['name']
+    teacher_id = data['teacher_id']
+    update_course(conn, course_id, name, teacher_id)
+    return jsonify({'message': 'Course updated successfully'})
+
+# 删除课程
+@app.route('/courses/<int:course_id>', methods=['DELETE'])
+def delete_course_route(course_id):
+    delete_course(conn, course_id)
+    return jsonify({'message': 'Course deleted successfully'})
 
 if __name__ == '__main__':
     app.run()
