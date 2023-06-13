@@ -38,3 +38,7 @@ docker build -t my-mysql .
 docker run -d -p 3306:3306 --name mysql-container my-mysql
 ```
 
+学生登录：可以进行请假，查看考勤
+辅导员登录：可以添加学生，审核请假
+教师登录：可以进行上课点名
+教务登录：可以创建课程，查看出勤

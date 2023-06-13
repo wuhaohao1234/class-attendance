@@ -8,7 +8,7 @@ def get_all_teachers(conn):
             teachers = cursor.fetchall()
             return teachers
     finally:
-        conn.close()
+        print('ok')
 
 # 添加老师
 def add_teacher(conn, teacher_data):
@@ -18,7 +18,7 @@ def add_teacher(conn, teacher_data):
             cursor.execute(sql, (teacher_data['name'], teacher_data['email']))
             conn.commit()
     finally:
-        conn.close()
+        print('ok')
 
 # 删除老师
 def delete_teacher(conn, teacher_id):
@@ -28,7 +28,7 @@ def delete_teacher(conn, teacher_id):
             cursor.execute(sql, (teacher_id,))
             conn.commit()
     finally:
-        conn.close()
+        print('ok')
 
 # 更新老师
 def update_teacher(conn, teacher_id, teacher_data):
@@ -38,7 +38,7 @@ def update_teacher(conn, teacher_id, teacher_data):
             cursor.execute(sql, (teacher_data['name'], teacher_data['email'], teacher_id))
             conn.commit()
     finally:
-        conn.close()
+        print('ok')
 
 # 查询单个老师
 def get_teacher(conn, teacher_id):
@@ -49,4 +49,4 @@ def get_teacher(conn, teacher_id):
             teacher = cursor.fetchone()
             return teacher
     finally:
-        conn.close()
+        print('ok')
