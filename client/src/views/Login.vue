@@ -20,14 +20,21 @@ const goToTeacher = () => {
   router.push('/teacher')
 }
 
+const goAcademic = () => {
+  router.push('/academic')
+}
+const goCounselor = () => {
+  router.push('/counselor')
+}
+
 </script>
 <template>
   <div class="login-page">
     <h1 class="font-bold text-2xl pb-5" >考勤管理系统</h1>
     <div class="login-buttons">
       <el-button @click="showLogin('student')">学生</el-button>
-      <el-button @click="showLogin('counselor')">辅导员</el-button>
-      <el-button @click="showLogin('academic')">教务</el-button>
+      <el-button @click="goCounselor">辅导员</el-button>
+      <el-button @click="goAcademic">教务</el-button>
       <!-- <el-button @click="showLogin('teacher')">任课教师</el-button> -->
       <el-button @click="goToTeacher">任课教师</el-button>
     </div>
