@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 const showDialog = ref(false)
 const currentRole = ref('')
 const studentForm = ref({
@@ -10,19 +11,25 @@ const counselorForm = ref({
   employeeId: '',
   password: ''
 })
+const router = useRouter();
 const showLogin = (role) => {
   showDialog.value = true
   currentRole.value = role
+}
+const goToTeacher = () => {
+  router.push('/teacher')
 }
 
 </script>
 <template>
   <div class="login-page">
+    <h1 class="font-bold text-2xl pb-5" >考勤管理系统</h1>
     <div class="login-buttons">
       <el-button @click="showLogin('student')">学生</el-button>
       <el-button @click="showLogin('counselor')">辅导员</el-button>
       <el-button @click="showLogin('academic')">教务</el-button>
-      <el-button @click="showLogin('teacher')">任课教师</el-button>
+      <!-- <el-button @click="showLogin('teacher')">任课教师</el-button> -->
+      <el-button @click="goToTeacher">任课教师</el-button>
     </div>
 
     <el-dialog v-model="showDialog" :title="currentRole + ' 登录'">
@@ -47,7 +54,7 @@ const showLogin = (role) => {
           <el-input v-model="counselorForm.password" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">登录</el-button>
+          <el-button>登录</el-button>
         </el-form-item>
       </el-form>
 
