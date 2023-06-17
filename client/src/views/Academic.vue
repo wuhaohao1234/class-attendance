@@ -65,7 +65,6 @@ export default {
       attendanceDialogVisible.value = true;
     };
     const deleteCourse = (row) => {
-      console.log(row.id);
         fetch(`api/courses/${row.id}`, {
           method: "DELETE",
           headers: {

@@ -13,7 +13,8 @@ def get_all_courses(conn):
         return courses
     finally:
         # 关闭游标，不关闭数据库连接
-        cursor.close()
+        # cursor.close()
+        print('ok')
 
 # 添加课程
 def add_course(conn, name, teacher_id):
@@ -35,7 +36,9 @@ def add_course(conn, name, teacher_id):
         raise e
     finally:
         # 关闭游标，不关闭数据库连接
-        cursor.close()
+        # cursor.close()
+
+        print('ok')
 
 # 更新课程
 def update_course(conn, course_id, name, teacher_id):
@@ -53,7 +56,8 @@ def update_course(conn, course_id, name, teacher_id):
         raise e
     finally:
         # 关闭游标，不关闭数据库连接
-        cursor.close()
+        print('ok')
+        # cursor.close()
 
 # 删除课程
 def delete_course(conn, course_id):
@@ -71,4 +75,5 @@ def delete_course(conn, course_id):
         raise e
     finally:
         # 关闭游标，不关闭数据库连接
-        cursor.close()
+        print('ok')
+        # cursor.close()

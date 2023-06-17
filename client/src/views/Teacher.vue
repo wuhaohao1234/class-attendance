@@ -4,52 +4,28 @@ const selectedCourse = ref("");
 const courses = ref([]);
 
 
-fetch('api/courses').then(res => res.json()).then(data => {
-  courses.value = data
-});
+const students = ref([]);
 
-const students = ref([
-  {
-    name: "学生1",
-    age: 18,
-    attendance: [
-      { date: "2023-06-01", status: "出勤" },
-      { date: "2023-06-02", status: "缺勤" },
-    ],
-  },
-  {
-    name: "学生2",
-    age: 19,
-    attendance: [
-      { date: "2023-06-01", status: "缺勤" },
-      { date: "2023-06-02", status: "出勤" },
-    ],
-  },
-  {
-    name: "学生2",
-    age: 19,
-    attendance: [
-      { date: "2023-06-01", status: "缺勤" },
-      { date: "2023-06-02", status: "出勤" },
-    ],
-  },
-  {
-    name: "学生2",
-    age: 19,
-    attendance: [
-      { date: "2023-06-01", status: "缺勤" },
-      { date: "2023-06-02", status: "出勤" },
-    ],
-  },
-  {
-    name: "学生2",
-    age: 19,
-    attendance: [
-      { date: "2023-06-01", status: "缺勤" },
-      { date: "2023-06-02", status: "出勤" },
-    ],
-  },
-]);
+const getCourse = () => {
+  fetch('api/courses').then(res => res.json()).then(data => {
+    courses.value = data
+  })
+}
+
+getCourse()
+
+const getStudents = () => {
+  fetch('api/students').then(res => res.json()).then(data => {
+    students.value = data
+  });
+}
+
+setTimeout(() => {
+  getStudents()
+}, 500);
+
+
+
 const submit = () => {};
 </script>
 <template>
@@ -70,7 +46,7 @@ const submit = () => {};
     </div>
     <el-table :data="students" border>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="age" label="年龄"></el-table-column>
+      <el-table-column prop="email" label="email"></el-table-column>
       <el-table-column label="操作">
         <template #default="">
           <el-button type="text">出勤</el-button>
