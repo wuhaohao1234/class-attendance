@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from "vue";
 const selectedCourse = ref("");
-const courses = [
-  { id: 1, name: "语文" },
-  { id: 2, name: "数学" },
-  { id: 3, name: "英语" },
-];
+const courses = ref([]);
+
+
+fetch('api/courses').then(res => res.json()).then(data => {
+  courses.value = data
+});
 
 const students = ref([
   {
