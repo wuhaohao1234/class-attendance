@@ -3,6 +3,7 @@ import pymysql
 from student import get_all_students, get_student, add_student, update_student, delete_student
 from teacher import *
 from courses import get_all_courses, add_course, update_course, delete_course
+from attendance import create_attendance_record, get_attendance_record, update_attendance_record, delete_attendance_record, get_all_attendance_records
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'  # 数据库主机名
@@ -113,6 +114,56 @@ def update_course_route(course_id):
 def delete_course_route(course_id):
     delete_course(conn, course_id)
     return jsonify({'message': 'Course deleted successfully'})
+
+# Create attendance record
+@app.route('/attendance', methods=['POST'])
+def add_attendance():
+    data = request.get_json()
+    student_id = data['student_id']
+    course_id = data['course_id']
+    attendance_date = data['attendance_date']
+    status = data['status']
+
+    create_attendance_record(conn, student_id, course_id, attendance_date, status)
+
+    return jsonify({'message': 'Attendance record created successfully'})
+
+# Get attendance record by ID
+@app.route('/attendance/<int:attendance_id>', methods=['GET'])
+def get_attendance(attendance_id):
+    attendance_record = get_attendance_record(conn, attendance_id)
+
+    if attendance_record:
+        return jsonify(attendance_record)
+    else:
+        return jsonify({'message': 'Attendance record not found'}), 404
+
+# Update attendance record
+@app.route('/attendance/<int:attendance_id>', methods=['PUT'])
+def update_attendance(attendance_id):
+    data = request.get_json()
+    student_id = data['student_id']
+    course_id = data['course_id']
+    attendance_date = data['attendance_date']
+    status = data['status']
+
+    update_attendance_record(conn, attendance_id, student_id, course_id, attendance_date, status)
+
+    return jsonify({'message': 'Attendance record updated successfully'})
+
+# Delete attendance record
+@app.route('/attendance/<int:attendance_id>', methods=['DELETE'])
+def delete_attendance(attendance_id):
+    delete_attendance_record(conn, attendance_id)
+
+    return jsonify({'message': 'Attendance record deleted successfully'})
+
+# Get all attendance records
+@app.route('/attendance', methods=['GET'])
+def get_all_attendance():
+    attendance_records = get_all_attendance_records(conn)
+
+    return jsonify(attendance_records)
 
 if __name__ == '__main__':
     app.run()

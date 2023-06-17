@@ -22,7 +22,7 @@
       <el-table-column label="操作" align="center">
         <template #default="{ row }">
           <el-button type="text" @click="showAttendance(row)">详情</el-button>
-          <el-button type="text" @click="deleteCourse(row)">删除</el-button>
+          <!-- <el-button type="text" @click="deleteCourse(row)">删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -42,26 +42,52 @@ import { ref } from "vue";
 export default {
   setup() {
     const newCourse = ref("");
-
+    const attendance = ref([]);
     const courseOptions = [
       { id: 1, name: "语文" },
       { id: 2, name: "数学" },
       { id: 3, name: "英语" },
+      { id: 4, name: "体育" },
     ];
+    const students = ref([])
     const courses = ref();
+    const getAttendance = () => {
+      return fetch('api/attendance').then(res => res.json()).then(data => {
+        attendance.value = data
+      });
+    }
+    const getStudents = () => {
+      return fetch('api/students').then(res => res.json()).then(data => {
+        students.value = data
+      });
+    }
     const getCourses = () => {
-      fetch("api/courses")
+      return fetch("api/courses")
         .then((res) => res.json())
         .then((data) => {
           courses.value = data;
         });
     }
-    getCourses()
+    getCourses().then(() => {
+      return getAttendance()
+    }).then(() => {
+      return getStudents()
+    })
 
     const selectedCourseAttendance = ref([]);
     const attendanceDialogVisible = ref(false);
     const showAttendance = (course) => {
-      selectedCourseAttendance.value = course.attendance;
+      const arr = attendance.value.filter(item => {
+        return item.course_id === course.id
+      })
+      selectedCourseAttendance.value = arr.map(item => {
+        const obj = students.value.find(student => student.id === item.student_id)
+        return {
+          name: obj.name,
+          attendance: item.status === 1? "出勤" : "未出勤",
+        }
+      })
+      // selectedCourseAttendance.value = course.attendance;
       attendanceDialogVisible.value = true;
     };
     const deleteCourse = (row) => {
