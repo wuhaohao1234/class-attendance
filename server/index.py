@@ -4,6 +4,7 @@ from student import get_all_students, get_student, add_student, update_student, 
 from teacher import *
 from courses import get_all_courses, add_course, update_course, delete_course
 from attendance import create_attendance_record, get_attendance_record, update_attendance_record, delete_attendance_record, get_all_attendance_records
+from leaves import get_all_leaves, add_leave, delete_leave, update_leave
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'  # 数据库主机名
@@ -164,6 +165,46 @@ def get_all_attendance():
     attendance_records = get_all_attendance_records(conn)
 
     return jsonify(attendance_records)
+
+# Get all leaves
+@app.route('/leaves', methods=['GET'])
+def get_leaves():
+    leaves = get_all_leaves(conn)
+    return jsonify(leaves)
+
+# Add a leave
+@app.route('/leaves', methods=['POST'])
+def add_leave_route():
+    data = request.get_json()
+    student_id = data['student_id']
+    course_id = data['course_id']
+    status = data['status']
+    attendance_date = data['attendance_date']
+    print(student_id)
+    print(course_id)
+    print(attendance_date)
+    leave_id = add_leave(conn, student_id, course_id, status)
+
+    return jsonify({'leave_id': leave_id})
+
+# Delete a leave
+@app.route('/leaves/<int:leave_id>', methods=['DELETE'])
+def delete_leave(leave_id):
+    delete_leave(conn, leave_id)
+
+    return jsonify({'message': 'Leave deleted successfully'})
+
+# Update a leave
+@app.route('/leaves/<int:leave_id>', methods=['PUT'])
+def update_leaver_route(leave_id):
+    data = request.get_json()
+    student_id = data['student_id']
+    course_id = data['course_id']
+    status = data['status']
+
+    update_leave(conn, leave_id, student_id, course_id, status)
+
+    return jsonify({'message': 'Leave updated successfully'})
 
 if __name__ == '__main__':
     app.run()
