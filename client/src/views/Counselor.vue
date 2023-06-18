@@ -5,7 +5,7 @@
     <!-- <Teacher /> -->
     <el-table :data="students" class="mt-5" border>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="email" label="email"></el-table-column>
+      <el-table-column prop="email" label="学号"></el-table-column>
       <el-table-column label="请假情况">
         <template #default="{row}">
           <span >否</span>

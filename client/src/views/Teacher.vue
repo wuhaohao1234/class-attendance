@@ -103,7 +103,7 @@ const submit = () => {};
     </div>
     <el-table :data="students" border>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="email" label="email"></el-table-column>
+      <el-table-column prop="email" label="学号"></el-table-column>
       <el-table-column label="操作">
         <template #default="{row}">
           <el-button v-if="!row.status" type="text" @click="handleAttendance(row)" >出勤</el-button>
