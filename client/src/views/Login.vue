@@ -77,7 +77,7 @@ const goStudent = () => {
 
 
 
-<style>
+<style scoped>
 .login-page {
   display: flex;
   flex-direction: column;
