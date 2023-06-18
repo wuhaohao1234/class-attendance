@@ -6,6 +6,12 @@
     <el-table :data="students" class="mt-5" border>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="email" label="学号"></el-table-column>
+      <el-table-column label="课程名称">
+        <template #default="{row}">
+          <span v-show="row.id % 2 === 0">语文</span>
+          <span v-show="row.id % 2 === 1">数学</span>
+        </template>
+      </el-table-column>
       <el-table-column label="请假情况">
         <template #default="{row}">
           <span >否</span>

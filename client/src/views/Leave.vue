@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="学生" prop="course">
-        <el-select v-model="leaveRequest.studentName" placeholder="请选择请假课程">
+        <el-select v-model="leaveRequest.studentName" @change="selectStudent"  placeholder="请选择请假课程">
           <el-option v-for="student in students" :key="student.id" :label="student.name" :value="student.id"></el-option>
         </el-select>
       </el-form-item>
@@ -23,12 +23,26 @@
         <el-button type="primary" native-type="submit">提交请假申请</el-button>
       </el-form-item>
     </el-form>
+    <el-table :data="courses" class="mt-2">
+      <el-table-column label="课程ID" prop="id"></el-table-column>
+      <el-table-column label="课程名称" prop="name"></el-table-column>
+      <el-table-column label="操作" align="center">
+        <template #default="{ row}">
+          <!-- <el-button type="text" @click="showAttendance(row)">详情</el-button> -->
+          <span v-show="row.id % 2 === 1">缺勤</span>
+          <span v-show="row.id % 2 === 0">出勤</span>
+          <!-- <el-button type="text" @click="deleteCourse(row)">删除</el-button> -->
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus'
+import { h } from 'vue'
 export default {
   setup() {
     const router = useRouter()
@@ -43,13 +57,15 @@ export default {
       return fetch("api/courses")
         .then((res) => res.json())
         .then((data) => {
-          courses.value = data;
+          courses.value = []
+          setTimeout(() => {
+            courses.value = data;
+          }, 500);
         });
     }
     const getStudents = () => {
       fetch('api/students').then(res => res.json()).then(data => {
         students.value = data
-        console.log(students.value);
       });
     }
     getCourses().then(() => {
@@ -63,9 +79,17 @@ export default {
           },
           body: JSON.stringify(leaveRequest),
       }).then(res => res.json()).then(data => {
-        router.push('/counselor')
+        // router.push('/counselor')
         // students.value = data
+        ElMessage({
+          message: h('p', null, [
+            h('span', null, '申请成功'),
+          ]),
+        })
       });
+    }
+    const selectStudent = () => {
+      getCourses()
     }
 
     const submitLeaveRequest = () => {
@@ -86,6 +110,7 @@ export default {
       leaveRequest,
       courses,
       students,
+      selectStudent,
       submitLeaveRequest
     };
   }

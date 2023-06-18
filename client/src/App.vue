@@ -50,4 +50,11 @@ const goStudent = () => {
 .el-dialog__body {
   padding: 20px;
 }
+.el-button {
+  /* padding-top: 20px; */
+  color: #000;
+  background: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
 </style>

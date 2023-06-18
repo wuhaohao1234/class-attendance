@@ -32,6 +32,9 @@
           {{ student.name }} - {{ student.attendance }}
         </li>
       </ul>
+      <p>
+        当前课程出勤率: {{ selectedCourseAttendance.filter(item => item.attendance === '出勤').length}} / {{ selectedCourseAttendance.length }}
+      </p>
     </el-dialog>
   </div>
 </template>
