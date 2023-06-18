@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-10 m-auto">
+  <div class="container pt-10 m-auto h-screen">
     <h1 class="text-3xl font-bold mb-4 text-center">学生出勤</h1>
 
     <!-- <Teacher /> -->

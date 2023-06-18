@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="dark bg-white dark:bg-slate-300" >
     <router-view></router-view>
   </div>
 </template>

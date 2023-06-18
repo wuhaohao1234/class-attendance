@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-10 m-auto">
+  <div class="container pt-10 m-autoi container pt-10 m-auto h-screen">
     <h1 class="text-3xl font-bold mb-4">请假申请</h1>
 
     <el-form ref="leaveForm" :model="leaveRequest" label-width="120px" class="mt-4" @submit.native.prevent="submitLeaveRequest">
@@ -20,7 +20,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button native-type="submit">提交请假申请</el-button>
+        <el-button type="primary" native-type="submit">提交请假申请</el-button>
       </el-form-item>
     </el-form>
   </div>
