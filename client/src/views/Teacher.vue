@@ -86,7 +86,7 @@ const handleSelectedCourse = async () => {
 const submit = () => {};
 </script>
 <template>
-  <div class="container mt-10 m-auto" >
+  <div class="container pt-10 m-auto" >
     <h1 class="text-center text-3xl pb-5" >学生考勤</h1>
     <div class="select-class flex justify-between">
       <div>

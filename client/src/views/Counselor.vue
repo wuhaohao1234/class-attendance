@@ -1,7 +1,25 @@
 <template>
-  <div class="container mt-10 m-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">请假审批</h1>
-    <el-table :data="leaveRequests" class="mt-2">
+  <div class="container pt-10 m-auto">
+    <h1 class="text-3xl font-bold mb-4 text-center">学生出勤</h1>
+
+    <!-- <Teacher /> -->
+    <el-table :data="students" class="mt-5" border>
+      <el-table-column prop="name" label="姓名"></el-table-column>
+      <el-table-column prop="email" label="email"></el-table-column>
+      <el-table-column label="请假情况">
+        <template #default="{row}">
+          <span >否</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="考勤">
+        <template #default="{row}">
+          <span >缺勤</span>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <h1 class="text-3xl font-bold mb-4 mt-10 text-center">请假审批</h1>
+    <el-table :data="leaveRequests" border class="mt-2">
       <el-table-column
         label="学生姓名"
         prop="studentName"
@@ -29,6 +47,9 @@
 import { ref } from "vue";
 
 export default {
+  components: {
+    Teacher: () => import("./Teacher.vue"),
+  },
   setup() {
     // const leaveRequests = ref([
     //   { id: 1, studentName: '学生1', leaveDate: '2023-06-15', course: '数学', reason: '家庭原因', status: 'pending' },
@@ -78,6 +99,7 @@ export default {
 
     return {
       leaveRequests,
+      students,
       approveLeave,
       rejectLeave,
     };

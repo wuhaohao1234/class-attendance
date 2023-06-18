@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10 m-auto">
+  <div class="container pt-10 m-auto">
     <h1 class="text-3xl font-bold mb-4">请假申请</h1>
 
     <el-form ref="leaveForm" :model="leaveRequest" label-width="120px" class="mt-4" @submit.native.prevent="submitLeaveRequest">

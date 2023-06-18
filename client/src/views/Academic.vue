@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-10 m-auto">
+  <div class="container pt-10 m-auto">
     <h1 class="text-3xl font-bold mb-4 text-center">管理课程</h1>
     <div class="flex justify-between">
       <h2 class="text-xl font-bold">添加课程</h2>
