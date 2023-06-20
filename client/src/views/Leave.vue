@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="请假课程" prop="course">
         <el-select v-model="leaveRequest.course" placeholder="请选择请假课程">
-          <el-option v-for="course in courses" :key="course.id" :label="course.name" :value="course.id"></el-option>
+          <el-option v-for="course in newCourses" :key="course.id" :label="course.name" :value="course.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="学生" prop="course">
@@ -55,12 +55,14 @@ export default {
       course: '',
     });
     const courses = ref([]);
+    const newCourses = ref([]);
     const students = ref([]);
     const attendance = ref([]);
     const getCourses = () => {
       return fetch("api/courses")
         .then((res) => res.json())
         .then((data) => {
+          newCourses.value = data
           courses.value = data;
         });
     }
@@ -74,8 +76,6 @@ export default {
       attendance.value = data
       let student_id = leaveRequest.value.studentName
       const arr = attendance.value.filter(item => item.student_id === student_id)
-      console.log(arr);
-      console.log(courses.value);
       const newArr = arr.map(item => {
         item.name = courses.value.find(course => course.id === item.course_id).name
         return item
@@ -133,7 +133,8 @@ export default {
       courses,
       students,
       selectStudent,
-      submitLeaveRequest
+      submitLeaveRequest,
+      newCourses
     };
   }
 };
