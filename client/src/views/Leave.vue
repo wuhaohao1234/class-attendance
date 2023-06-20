@@ -23,14 +23,17 @@
         <el-button type="primary" native-type="submit">提交请假申请</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="courses" class="mt-2">
+    <h2 v-show="courses.length === 0" >
+      请选择学生
+    </h2>
+    <el-table v-show="courses.length > 0" :data="courses"  class="mt-2">
       <el-table-column label="课程ID" prop="id"></el-table-column>
       <el-table-column label="课程名称" prop="name"></el-table-column>
       <el-table-column label="操作" align="center">
         <template #default="{ row}">
           <!-- <el-button type="text" @click="showAttendance(row)">详情</el-button> -->
-          <span v-show="row.id % 2 === 1">缺勤</span>
-          <span v-show="row.id % 2 === 0">出勤</span>
+          <span v-show="row.status === 2">缺勤</span>
+          <span v-show="row.status === 1">出勤</span>
           <!-- <el-button type="text" @click="deleteCourse(row)">删除</el-button> -->
         </template>
       </el-table-column>
@@ -53,23 +56,37 @@ export default {
     });
     const courses = ref([]);
     const students = ref([]);
+    const attendance = ref([]);
     const getCourses = () => {
       return fetch("api/courses")
         .then((res) => res.json())
         .then((data) => {
-          courses.value = []
-          setTimeout(() => {
-            courses.value = data;
-          }, 500);
+          courses.value = data;
         });
     }
     const getStudents = () => {
-      fetch('api/students').then(res => res.json()).then(data => {
+      return fetch('api/students').then(res => res.json()).then(data => {
         students.value = data
       });
     }
+  const getAttendance = () => {
+    return fetch('api/attendance').then(res => res.json()).then(data => {
+      attendance.value = data
+      let student_id = leaveRequest.value.studentName
+      const arr = attendance.value.filter(item => item.student_id === student_id)
+      console.log(arr);
+      console.log(courses.value);
+      const newArr = arr.map(item => {
+        item.name = courses.value.find(course => course.id === item.course_id).name
+        return item
+      })
+      courses.value = newArr
+    });
+  }
     getCourses().then(() => {
-      getStudents()
+      getStudents().then(() => {
+        getAttendance() 
+      })
     })
     const addLeaves = (leaveRequest) => {
       fetch('api/leaves', {
@@ -88,8 +105,13 @@ export default {
         })
       });
     }
+
     const selectStudent = () => {
-      getCourses()
+      getCourses().then(() => {
+      getStudents().then(() => {
+        getAttendance() 
+      })
+    })
     }
 
     const submitLeaveRequest = () => {
