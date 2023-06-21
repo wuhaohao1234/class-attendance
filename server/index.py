@@ -198,6 +198,7 @@ def delete_leave(leave_id):
 @app.route('/leaves/<int:leave_id>', methods=['PUT'])
 def update_leaver_route(leave_id):
     data = request.get_json()
+    print(data['student_id'])
     student_id = data['student_id']
     course_id = data['course_id']
     status = data['status']

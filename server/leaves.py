@@ -60,10 +60,10 @@ def delete_leave(conn, leave_id):
         # cursor.close()
 
 # Update leave
-def update_leave(conn, leave_id, student_id, course_id, status, attendance_date):
+def update_leave(conn, leave_id, student_id, course_id, status):
     try:
         with conn.cursor() as cursor:
-            sql = "UPDATE leaves SET student_id = %s, course_id = %s, status = %s,  WHERE id = %s"
+            sql = "UPDATE leaves SET student_id = %s, course_id = %s, status = %s WHERE id = %s"
             # Execute update statement
             cursor.execute(sql, (student_id, course_id, status,leave_id))
 

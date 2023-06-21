@@ -78,6 +78,7 @@ export default {
       const arr = attendance.value.filter(item => item.student_id === student_id)
       const newArr = arr.map(item => {
         item.name = courses.value.find(course => course.id === item.course_id).name
+        item.id = courses.value.find(course => course.id === item.course_id).id
         return item
       })
       courses.value = newArr
