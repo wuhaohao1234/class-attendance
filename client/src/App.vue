@@ -20,17 +20,7 @@ const goStudent = () => {
 </script>
 
 <template>
-  <div style="background-image: url(src/assets/bg.png);" >
-    <div class="login-page">
-      <div class="login-buttons">
-        <el-button @click="goStudent">学生</el-button>
-        <el-button @click="goCounselor">辅导员</el-button>
-        <el-button @click="goAcademic">教务</el-button>
-        <!-- <el-button @click="showLogin('teacher')">任课教师</el-button> -->
-        <el-button @click="goToTeacher">任课教师</el-button>
-      </div>
-    </div>
-
+  <div style="" >
     <router-view></router-view>
   </div>
 </template>
